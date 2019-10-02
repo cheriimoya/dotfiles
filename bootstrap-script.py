@@ -176,8 +176,8 @@ def install_programs(install_recommended=False):
 
     if not run(
             ['which', 'pacman'], stdout=DEVNULL, stderr=DEVNULL).returncode:
-        package_manager_update_command = 'sudo pacman -Syy'
-        package_manager_install_command = 'sudo pacman -S'
+        package_manager_update_command = ['sudo', 'pacman', '-Syy']
+        package_manager_install_command = ['sudo', 'pacman', '-S']
 
     if not run(
             ['which', 'nix-env'], stdout=DEVNULL, stderr=DEVNULL).returncode:
