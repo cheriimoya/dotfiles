@@ -93,25 +93,15 @@ def configure():
         ['zsh_theme', 'your preferred zsh theme', 'bureau']]
 
     for question in questions:
-        answer = input(f'What is {question[1]}? (default: {question[2]})')
+        answer = input(f'What is {question[1]}? (default: {question[2]}) ')
         if answer == '':
             question.append(question[2])
         else:
             question.append(answer)
 
     # TODO: jinja2 render
-    #echo '=== Replacing the placeholders with your values...'
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ git_name }}/${git_name[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ git_email }}/${git_email[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ editor_default }}/${editor_default[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ ethernet_id }}/${ethernet_id[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ wifi_id }}/${wifi_id[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ font_face }}/${font_face[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ font_size }}/${font_size[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ keyboard_layout }}/${keyboard_layout[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ zsh_theme }}/${zsh_theme[2]}/' {} \;
 
-    #echo '=== Replacing the placeholders with your values...'
+    print('=== Replacing the placeholders with your values...')
     with open('sedcmds', 'w') as sed:
         for question in questions:
             sed.write('s/{{{{ { question[0] } }}}}/{ question[3] }/\n')
@@ -122,22 +112,9 @@ def configure():
     set_trace()
     run(command, shell=True)
 
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ git_name }}/${git_name[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ git_email }}/${git_email[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ editor_default }}/${editor_default[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ ethernet_id }}/${ethernet_id[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ wifi_id }}/${wifi_id[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ font_face }}/${font_face[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ font_size }}/${font_size[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ keyboard_layout }}/${keyboard_layout[2]}/' {} \;
-    #find '${TARGET_DIR}' -type f -exec sed -i 's/{{ zsh_theme }}/${zsh_theme[2]}/' {} \;
-
 
 def link():
     print('=== Linking files to their destination...')
-
-    source_dir = DOTFILES_PATH
-    home_dir = HOME
 
     what_to_link = [
         ['aliases', '.aliases'],
@@ -153,10 +130,8 @@ def link():
         ['zshrc', '.zshrc'],
         ['Xresources', '.Xresources']]
 
-
     if not os.path.isdir(DOT_CONFIG_DIR):
         os.mkdir(DOT_CONFIG_DIR)
-
 
     for link_pair in what_to_link:
         link_from = os.path.join(DOTFILES_PATH, link_pair[0])
@@ -191,22 +166,25 @@ def setup_oh_my_zsh():
 
 
 def install_programs(install_recommended=False):
-    package_manager_update_command=''
-    package_manager_install_command=''
+    package_manager_update_command = ''
+    package_manager_install_command = ''
 
-    if not run(['which', 'apt-get'], stdout=DEVNULL, stderr=DEVNULL):
+    if not run(
+            ['which', 'apt-get'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
         package_manager_update_command = 'sudo apt-get update'
         package_manager_install_command = 'sudo apt-get install'
 
-    if not run(['which', 'pacman'], stdout=DEVNULL, stderr=DEVNULL):
+    if not run(
+            ['which', 'pacman'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
         package_manager_update_command = 'sudo pacman -Syy'
         package_manager_install_command = 'sudo pacman -S'
 
-    if not run(['which', 'nix-env'], stdout=DEVNULL, stderr=DEVNULL):
+    if not run(
+            ['which', 'nix-env'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
         package_manager_update_command = 'nix-channel --update'
         package_manager_install_command = 'nix-env -iA'
 
-    if package_manager_command == '':
+    if package_manager_update_command == '':
         output_fail_message_and_exit(
                 'no supported package manager found, aborting',
                 100)
@@ -218,15 +196,15 @@ def install_programs(install_recommended=False):
     run(
             package_manager_install_command
             + ' '
-            + ' '.join(REQUIRED_PACKAGES)
-            , shell=True)
+            + ' '.join(REQUIRED_PACKAGES),
+            shell=True)
 
     if install_recommended:
         run(
                 package_manager_install_command
                 + ' '
-                + ' '.join(RECOMMENDED_PACKAGES)
-                , shell=True)
+                + ' '.join(RECOMMENDED_PACKAGES),
+                shell=True)
 
 
 def main():
