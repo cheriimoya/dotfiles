@@ -109,7 +109,6 @@ def configure():
     command = f'find {DOTFILES_PATH} -type f -exec sed -i -f sedcmds {{}} \\;'
 
     print(command)
-    set_trace()
     run(command, shell=True)
 
 
@@ -193,19 +192,15 @@ def install_programs(install_recommended=False):
     print('Trying to install required packages')
 
     run(package_manager_update_command)
-    run(
-            package_manager_install_command
-            + ' '
-            + ' '.join(REQUIRED_PACKAGES),
-            shell=True)
+    package_manager_install_command.extend(REQUIRED_PACKAGES)
 
     if install_recommended:
-        run(
-                package_manager_install_command
-                + ' '
-                + ' '.join(RECOMMENDED_PACKAGES),
-                shell=True)
+        package_manager_install_command.extend(RECOMMENDED_PACKAGES)
 
+    run(package_manager_install_command)
+
+
+# install message
 
 def main():
     if len(sys.argv) == 2 and sys.argv[1] == '--install':
