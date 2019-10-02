@@ -170,17 +170,17 @@ def install_programs(install_recommended=False):
     package_manager_install_command = ''
 
     if not run(
-            ['which', 'apt-get'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
+            ['which', 'apt-get'], stdout=DEVNULL, stderr=DEVNULL).returncode:
         package_manager_update_command = 'sudo apt-get update'
         package_manager_install_command = 'sudo apt-get install'
 
     if not run(
-            ['which', 'pacman'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
+            ['which', 'pacman'], stdout=DEVNULL, stderr=DEVNULL).returncode:
         package_manager_update_command = 'sudo pacman -Syy'
         package_manager_install_command = 'sudo pacman -S'
 
     if not run(
-            ['which', 'nix-env'], shell=True, stdout=DEVNULL, stderr=DEVNULL):
+            ['which', 'nix-env'], stdout=DEVNULL, stderr=DEVNULL).returncode:
         package_manager_update_command = 'nix-channel --update'
         package_manager_install_command = 'nix-env -iA'
 
