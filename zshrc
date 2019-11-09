@@ -2,28 +2,29 @@
 autoload -Uz compinit promptinit
 
 # Path to your oh-my-zsh installation.
-export ZSH="${HOME}/.dotfiles/oh-my-zsh"
+export ZSH="$HOME/.config/oh-my-zsh"
 
 # set vim as editor
-export EDITOR={{ editor_default }}
-
-export TERM="xterm-256color"
+export EDITOR=${EDITOR:-vim}
 
 # Load aliases
-if [ -f "${HOME}"/.aliases ]; then
-  source "${HOME}"/.aliases
+if [ -f ~/.aliases_private ]; then
+  source ~/.aliases_private
+fi
+
+# Load aliases
+if [ -f ~/.aliases ]; then
+  source ~/.aliases
 fi
 
 # Autocorrect
 setopt correctall
 
-#history
-HISTFILE="${HOME}"/.zsh_history
+# History
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=1000000
-setopt histignorealldups sharehistory
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
+setopt sharehistory hist_ignore_all_dups hist_ignore_space
 # No history file in less
 export LESSHISTFILE=-
 
@@ -79,7 +80,7 @@ export LESS_TERMCAP_se=$COLOR_RESET
 export LESS_TERMCAP_us=$COLOR_RED
 export LESS_TERMCAP_ue=$COLOR_RESET
 
-#style options
+# Style options
 eval "$(dircolors -b)"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -98,11 +99,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 #make rm harmless
-#rm(){
-#    for file in $@; do
-#        mv $file ~/.trash/
-#    done
-#}
+alias rm="rm -I"
 
 # Extract various archive types
 extr() {
@@ -125,6 +122,16 @@ help() {
     local url=$(python3 -c \
         'from urllib import parse; print(parse.quote_plus("'${string}'"))')
     firefox "https://stackoverflow.com/search?q=${url}"
+}
+
+# Validate json files
+validatejson() {
+    python3 -c 'import json; j=json.load(open("'$1'"))'
+}
+
+# Pretty print json files
+ppjson() {
+    python3 -c 'import json; j=json.load(open("'$1'"));json.dump(j, open("pretty_'$1'","w"), indent=4)'
 }
 
 ZSH_THEME="{{ zsh_theme }}"
@@ -156,7 +163,6 @@ export UPDATE_ZSH_DAYS=14
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
     adb
-    battery
     catimg
     colorize
     command-not-found

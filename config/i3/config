@@ -212,21 +212,21 @@ mode "$mode_border" {
 }
 
 ## GAPS
-#smart_gaps on
-#gaps inner 30
-#gaps outer 15
+smart_gaps on
+gaps inner 15
+gaps outer 10
 
 ## Toggle Gaps, i3-gaps needs to be installed
-#set $mode_gaps Toggle gaps: (1)OFF (2)NORMAL (3)HUGE
-#bindsym $mod+n mode "$mode_gaps"
-#
-#mode "$mode_gaps" {
-#    bindsym 1 mode "default", gaps inner all set 0, gaps outer all set 0
-#    bindsym 2 mode "default", gaps inner all set 15, gaps outer all set 10
-#    bindsym 3 mode "default", gaps inner all set 30, gaps outer all set 15
-#    bindsym Return mode "default"
-#    bindsym Escape mode "default"
-#}
+set $mode_gaps Toggle gaps: (1)OFF (2)NORMAL (3)HUGE
+bindsym $mod+n mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym 1 mode "default", gaps inner all set 0, gaps outer all set 0
+    bindsym 2 mode "default", gaps inner all set 15, gaps outer all set 10
+    bindsym 3 mode "default", gaps inner all set 30, gaps outer all set 15
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # Window colors
 #                       border              background         text                 indicator
@@ -238,23 +238,8 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # Hide new window edge
 hide_edge_borders both
 
-bar {
-    # Mode hide
-    # Hidden_state show
-    modifier $mod
-
-    separator_symbol "/"
-    status_command i3blocks -c "$HOME"/.config/i3/i3blocks.conf
-    position top
-    colors {
-        background $bg-color
-        separator #757575
-        #                  border             background         text
-        focused_workspace  $bg-color          $bg-color          $text-color
-        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-    }
-}
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper.jpg
 
 # Screensaver
 bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/lock
@@ -299,8 +284,6 @@ exec --no-startup-id conky
 exec --no-startup-id ~/.config/i3/scripts/mouseConfig
 
 # Autostart programs
-exec --no-startup-id chromium --restore-last-session
-exec --no-startup-id atom
 #exec --no-startup-id sudo netctl start wlan
 
 # For disabling all binds (useful for blender)

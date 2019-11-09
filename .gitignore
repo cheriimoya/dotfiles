@@ -4,6 +4,7 @@ vim/tags/
 vim/undodir/
 bookmarks*.json
 *.swp
+*.swo
 *.jpg
 *.png
 .aliases_private

@@ -33,3 +33,7 @@ alias screenoff='sleep 1; xset s activate'
 alias wifi="sudo wpa_supplicant -i {{ wifi_id }} -c ~/.wpa_supplicant/wpa.conf&!"
 alias kill-wifi='sudo killall wpa_supplicant'
 alias wlan-scan="sudo iwlist scanning"
+
+alias please="sudo"
+
+alias backup="rsync -avP --info=progress2 --delete --delete-excluded --exclude=.\*/"
