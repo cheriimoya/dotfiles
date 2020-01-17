@@ -46,7 +46,9 @@ Xft.lcdfilter: lcddefault
 !*.font:xft:Comic Neue Angular:size=12
 !*.font:xft:Source Code Pro:size=13
 !*.font:xft:Font Awesome 5:size=12
-!*.font:xft:Hack:size=12
+*.font:xft:Hack:size=12
+
+rofi.font: Hack 11
 
 !URxvt--------------------------------------------------------------------------
 !URxvt.letterSpace: -3

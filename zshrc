@@ -38,6 +38,7 @@ bindkey "^[[1;5D" backward-word
 bindkey '^R' history-incremental-search-backward
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
+bindkey -s '^N' '¯\\_(ツ)_/¯'
 
 # Type /etc instead of cd /etc
 setopt AUTO_CD
@@ -191,3 +192,5 @@ export ARCHFLAGS="-arch x86_64"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

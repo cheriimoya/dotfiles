@@ -46,7 +46,7 @@ set t_Co=256
 set background=dark
 
 " Show maximum text width
-set colorcolumn=81
+set colorcolumn=79
 "set textwidth=80
 
 " Split windows accordingly
@@ -204,9 +204,12 @@ call plug#begin('~/.vim/plugged')
     " Show indentations
     Plug 'nathanaelkane/vim-indent-guides'
 
+    " Taaag baaar
+    Plug 'majutsushi/tagbar'
+
     Plug 'jceb/vim-orgmode'
     Plug 'tpope/vim-speeddating'
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
     "Plug 'Valloric/YouCompleteMe'
@@ -223,6 +226,8 @@ function! s:goyo_leave()
 endfunction
 
 colorscheme badwolf
+
+nmap <F8> :TagbarToggle<CR>
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()

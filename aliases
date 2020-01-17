@@ -5,7 +5,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias grep="grep --color=auto"
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 alias term="terminator"
 alias du="du * -shc"
 alias df="df -h"
@@ -26,14 +27,9 @@ fi
 
 ## Turn screen LED off
 alias screenoff='sleep 1; xset s activate'
-#alias dpmsoff='xset s off;xset -dpms'
-#alias dpmson='xset s on;xset +dpms'
-
-## Internet stuff
-alias wifi="sudo wpa_supplicant -i {{ wifi_id }} -c ~/.wpa_supplicant/wpa.conf&!"
-alias kill-wifi='sudo killall wpa_supplicant'
-alias wlan-scan="sudo iwlist scanning"
+alias dpmsoff='xset s off;xset -dpms'
+alias dpmson='xset s on;xset +dpms'
 
 alias please="sudo"
 
-alias backup="rsync -avP --info=progress2 --delete --delete-excluded --exclude=.\*/"
+alias backup="rsync -avP --info=progress2 --delete --exclude=.\*/"
