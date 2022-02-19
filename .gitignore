@@ -1,0 +1,10 @@
+excluded/*
+!excluded/.gitkeep
+bookmarks*.json
+*.swp
+*.swn
+*.swo
+*.jpg
+*.png
+.aliases_private
+config/tmux/resurrect

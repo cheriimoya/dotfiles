@@ -1,0 +1,3 @@
+# vim: filetype=neomuttrc
+source ./mutt-wizard.muttrc
+source ./accounts/account1.muttrc

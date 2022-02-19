@@ -1,0 +1,21 @@
+## Small useful default command parameters
+alias ls='ls --color=auto'
+alias ll='ls -al'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias grep="grep --color=auto"
+alias vi="nvim"
+alias vim="nvim"
+alias df="df -h"
+
+## Turn screen LED off
+alias screenoff='sleep 1; xset s activate'
+alias dpmsoff='xset s off;xset -dpms'
+alias dpmson='xset s on;xset +dpms'
+
+alias taskpush="task export | ssh pi 'task import'"
+alias taskpull="ssh pi 'task export' | task import"
+
+alias cleanlatex="rm -f *.aux; rm -f *.log"
+alias disco='while true; do printf "\e[38;5;$(($(od -d -N 2 -A n /dev/urandom)%$(tput colors)))m.\e[0m"; done'

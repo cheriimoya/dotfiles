@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+set -euxo pipefail
+
+echo "Running config for paulaner with $@"
+
+monitor_config="${2-}"
+if [ -n "$monitor_config" ]; then
+    echo "applying config $monitor_config"
+    $HOME/.config/bspwm/layouts/$monitor_config > /tmp/screenlayout.log 2>&1
+else
+    echo "no config found"
+fi
+
+bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+
+echo "starting polybar"
+MONITOR="DisplayPort-0" polybar --config=$HOME/.config/polybar/config.ini 3_hugebar &
+
+xset s off -dpms

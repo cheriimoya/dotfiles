@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+set -euxo pipefail
+
+echo "Running config for franziskaner with $@"
+feh --bg-fill $HOME/.config/background3.png
+
+monitor_config="${2-}"
+if [ -n "$monitor_config" ]; then
+    echo "applying config $monitor_config"
+    $HOME/.config/bspwm/layouts/$monitor_config > /tmp/screenlayout.log 2>&1
+else
+    echo "applying mobile config"
+    xrandr --auto
+    bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+    polybar --config=$HOME/.config/polybar/config.ini 3_primary-top &
+    polybar --config=$HOME/.config/polybar/config.ini 3_primary-bottom &
+fi

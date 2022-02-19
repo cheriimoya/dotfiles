@@ -1,0 +1,57 @@
+[include]
+    path = ~/.dotfiles/excluded/gitconfig
+[color]
+    ui = auto
+[alias]
+    d = difftool --extcmd='nvim -d'
+    prune = fetch --prune
+    oops = commit --amend --no-edit
+    undo = reset --soft HEAD^
+    stash-all = stash save --include-untracked
+    glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    gloga = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
+    graph = log --graph --oneline --decorate=short --branches='*'
+[diff]
+    renames = true
+    submodule = log
+[receive]
+    fsckobjects = true
+[fetch]
+    fsckobjects = true
+    recurseSubmodules = on-demand
+[log]
+    abbrevCommit = true
+[init]
+    defaultBranch = master
+[mergetool]
+    keepBackup = false
+    keepTemporaries = false
+    writeToTemp = true
+[status]
+    submoduleSummary = true
+    showUntrackedFiles = all
+[color "branch"]
+    upstream = cyan
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
+[transfer]
+    fsckobjects = true
+[push]
+    default = current
+[credential]
+    # This is for caching the https password for a long time
+    helper = cache --timeout=3600000
+[gpg]
+    program = gpg
+[commit]
+    gpgsign = true
+[pull]
+    ff = only
+[core]
+    commentchar = ";"
+[rebase]
+    instructionFormat = (%an <%ae>) %s
+[merge]
+    ff = only

@@ -1,0 +1,19 @@
+#! /usr/bin/env sh
+set -euxo pipefail
+
+echo "Bspwm config script called on $(date)"
+
+host="${1-}"
+if [[ -z $host ]]; then
+    host="$(hostname -s)"
+fi
+
+source $HOME/.config/bspwm/common_config
+
+if [ -f ~/.config/bspwm/hosts/${host} ]; then
+    echo "Starting bspwm config for ${host}"
+    ~/.config/bspwm/hosts/${host} $@
+else
+    echo "Warning, couldn't find a config file for this host (${host})"
+    # TODO define default config file
+fi

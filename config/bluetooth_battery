@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+level=$(bluetooth_battery $(gopass show "misc/wh-1000xm3-mac" | cat) | cut -d' ' -f6)
+echo $level

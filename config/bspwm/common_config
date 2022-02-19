@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+set -euxo pipefail
+
+numlockx on
+source $HOME/.config/bspwm/start_programs.sh
+
+# The following options return 1 if they are already set to the specified
+# value, i.e. false.
+set +e
+bspc config borderless_monocle   true
+bspc config focus_follows_pointer false
+bspc config gapless_monocle      true
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+bspc config single_monocle false
+bspc config merge_overlapping_monitors true
+set -e
+
+bspc config border_width         1
+bspc config window_gap           2
+bspc config split_ratio          0.50
+
+bspc config normal_border_color  \#000000
+bspc config active_border_color  \#140f9d
+bspc config focused_border_color \#145f9d
+
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+# bspc rule -a Emacs state=tiled
+# bspc rule -a libreoffice state=tiled
+# bspc rule -a zatharu state=tiled
+# bspc rule -a 'Firefox Developer Edition:Toolkit' follow=on sticky=on
